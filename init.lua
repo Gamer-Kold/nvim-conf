@@ -109,7 +109,19 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',
+    config = function()
+      local wk = require("which-key")
+      wk.register({
+        ["<leader>"] = {
+        l = { name = "lsp" },
+        w = { name = "workspace" },
+        g = { name = "go to" },
+        s = { name = "search" },
+        }
+      })
+    end
+  },
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -125,7 +137,7 @@ require('lazy').setup({
       on_attach = function(bufnr)
         vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
         vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-        vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
+        vim.keymap.set('n', '<leader>p', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review Hunk' })
       end,
     },
   },
@@ -192,6 +204,26 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+  {
+    'renerocksai/telekasten.nvim',
+    dependencies = {'nvim-telescope/telescope.nvim'},
+    config = function ()
+      require('telekasten').setup({home = "/home/talha/vault/"})
+      local nmap = function(keys, func, desc)
+        if desc then
+          desc = 'Telekasten: ' .. desc
+        end
+
+        vim.keymap.set('n', "<leader>t"..keys, func, {desc = desc })
+      end
+      nmap("p", "<cmd>Telekasten panel<return>", "Panel")
+      nmap("f", "<cmd>Telekasten follow_link<return>", "Follow Link")
+    end
+  },
+  {
+    "nvim-telescope/telescope-media-files.nvim"
+  },
+
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -292,7 +324,7 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
 
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
+vim.keymap.set('n', '<leader>sG', require('telescope.builtin').git_files, { desc = '[S]earch [G]it Files' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
