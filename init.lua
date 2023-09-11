@@ -13,8 +13,7 @@ Kickstart.nvim is a template for your own configuration.
 
   Once you've done that, you should start exploring, configuring and tinkering to
   explore Neovim!
-
-  If you don't know anything about Lua, I recommend taking some time to read through
+If you don't know anything about Lua, I recommend taking some time to read through
   a guide. One possible example:
   - https://learnxinyminutes.com/docs/lua/
 
@@ -115,9 +114,10 @@ require('lazy').setup({
       wk.register({
         ["<leader>"] = {
         l = { name = "lsp" },
-        w = { name = "workspace" },
+        w = { name = "wiki" },
         g = { name = "go to" },
         s = { name = "search" },
+        o = { name = "wOrkspaces" },
         }
       })
     end
@@ -172,7 +172,7 @@ require('lazy').setup({
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     opts = {
-      char = '|',
+      char = '│',
       show_trailing_blankline_indent = false,
     },
   },
@@ -205,20 +205,31 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
   {
-    'renerocksai/telekasten.nvim',
-    dependencies = {'nvim-telescope/telescope.nvim'},
-    config = function ()
-      require('telekasten').setup({home = "/home/talha/vault/"})
-      local nmap = function(keys, func, desc)
-        if desc then
-          desc = 'Telekasten: ' .. desc
-        end
+    "lervag/wiki.vim",
+    config = function()
+      vim.g.wiki_root = "~/vault/"
+      vim.g.wiki_link_creation = {
+        md= {
+          link_type= "wiki",
+          url_extension= "",
+        },
+        org= {
+          link_type = "org",
+          url_extension= ".org",
+        },
+        adoc= {
+          link_type= "adoc_xref_bracket",
+          url_extension= "",
+        },
+        _= {
+          link_type= "wiki",
+          url_extension= "",
+        },
+      }
 
-        vim.keymap.set('n', "<leader>t"..keys, func, {desc = desc })
-      end
-      nmap("p", "<cmd>Telekasten panel<return>", "Panel")
-      nmap("f", "<cmd>Telekasten follow_link<return>", "Follow Link")
+      vim.keymap.set("i", "<c-f>", "<c-x><c-f>", {desc="Open File Completion"})
     end
+<<<<<<< HEAD
   },
   {
     "nvim-telescope/telescope-media-files.nvim"
@@ -249,6 +260,7 @@ require('lazy').setup({
     dependencies = {"nvim-treesitter/nvim-treesitter"}
   }
 
+  }
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -452,17 +464,17 @@ local on_attach = function(_, bufnr)
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap('<leader>ld', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  nmap('<leader>ld', require('telescope.builtin').lsp_document_symbols, '[D]ocument Symbols')
+  nmap('<leader>lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace Symbols')
 
   nmap('<leader>lh', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<leader>lH', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>wl', function()
+  nmap('<leader>oa', vim.lsp.buf.add_workspace_folder, 'W[o]rkspace [A]dd Folder')
+  nmap('<leader>or', vim.lsp.buf.remove_workspace_folder, 'W[o]rkspace [R]emove Folder')
+  nmap('<leader>ol', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
