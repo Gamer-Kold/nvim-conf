@@ -114,10 +114,9 @@ require('lazy').setup({
       wk.register({
         ["<leader>"] = {
         l = { name = "lsp" },
-        w = { name = "wiki" },
         g = { name = "go to" },
         s = { name = "search" },
-        o = { name = "wOrkspaces" },
+        w = { name = "workspaces" },
         }
       })
     end
@@ -193,8 +192,7 @@ require('lazy').setup({
     build = 'make',
     cond = function()
       return vim.fn.executable 'make' == 1
-    end,
-  },
+    end, },
 
   {
     -- Highlight, edit, and navigate code
@@ -203,36 +201,6 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
-  },
-  {
-    "lervag/wiki.vim",
-    config = function()
-      vim.g.wiki_root = "~/vault/"
-      vim.g.wiki_link_creation = {
-        md= {
-          link_type= "wiki",
-          url_extension= "",
-        },
-        org= {
-          link_type = "org",
-          url_extension= ".org",
-        },
-        adoc= {
-          link_type= "adoc_xref_bracket",
-          url_extension= "",
-        },
-        _= {
-          link_type= "wiki",
-          url_extension= "",
-        },
-      }
-
-      vim.keymap.set("i", "<c-f>", "<c-x><c-f>", {desc="Open File Completion"})
-    end
-<<<<<<< HEAD
-  },
-  {
-    "nvim-telescope/telescope-media-files.nvim"
   },
   {
     'nvim-orgmode/orgmode',
@@ -258,9 +226,8 @@ require('lazy').setup({
       })
     end,
     dependencies = {"nvim-treesitter/nvim-treesitter"}
-  }
+  },
 
-  }
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -472,9 +439,9 @@ local on_attach = function(_, bufnr)
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('<leader>oa', vim.lsp.buf.add_workspace_folder, 'W[o]rkspace [A]dd Folder')
-  nmap('<leader>or', vim.lsp.buf.remove_workspace_folder, 'W[o]rkspace [R]emove Folder')
-  nmap('<leader>ol', function()
+  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, 'W[o]rkspace [A]dd Folder')
+  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, 'W[o]rkspace [R]emove Folder')
+  nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
