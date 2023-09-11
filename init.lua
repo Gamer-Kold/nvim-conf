@@ -223,6 +223,12 @@ require('lazy').setup({
   {
     "nvim-telescope/telescope-media-files.nvim"
   },
+  {
+    'nvim-orgmode/orgmode',
+    config = function()
+      require('orgmode').setup{}
+    end
+  }
 
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
