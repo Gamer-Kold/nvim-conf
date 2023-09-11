@@ -473,6 +473,13 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  fennel_language_server = {
+    fennel = {
+      diagnostics = {
+        globals = {"love", "vim", "fennel"}
+      }
+    }
+  },
 }
 
 -- Setup neovim lua configuration
