@@ -221,8 +221,8 @@ require('lazy').setup({
       }
 
       require('orgmode').setup({
-        org_agenda_files = {'~/vault/**/*'},
-        org_default_notes_file = '~/vault/index.org',
+        org_agenda_files = {'~/notes/**/*'},
+        org_default_notes_file = '~/notes/index.org',
       })
     end,
     dependencies = {"nvim-treesitter/nvim-treesitter"}
