@@ -1,2 +1,1 @@
-<<<<<<< HEAD
-
+Neovim is but a dream
