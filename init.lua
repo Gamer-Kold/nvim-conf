@@ -248,7 +248,7 @@ require('lazy').setup({
     dependencies = {'nvim-telescope/telescope.nvim'},
     config = function ()
       require("telekasten").setup({
-        home = vim.fn.expand("~/notes/")
+        home = vim.fn.expand("~/shared/zettelkasten/")
       })
     end,
   },
