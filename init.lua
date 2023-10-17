@@ -242,7 +242,17 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
-  }},{})
+  },
+  {
+    'renerocksai/telekasten.nvim',
+    dependencies = {'nvim-telescope/telescope.nvim'},
+    config = function ()
+      require("telekasten").setup({
+        home = vim.fn.expand("~/notes/")
+      })
+    end,
+  },
+},{})
 
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
